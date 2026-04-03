@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics in Action - Eduvate</title>
+    <link rel="shortcut icon" href="./USMAN Logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #0f172a;
+            --card-bg: rgba(241, 245, 249, 0.8);
+            --border-color: #e2e8f0;
+        }
+
+        .dark {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .part-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .part-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 20px -10px #3b82f6;
+        }
+
+        .drop-zone {
+            border: 2px dashed #475569;
+            background: rgba(15, 23, 42, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .dark .drop-zone {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .drop-zone.active {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .signal-line {
+            stroke-dasharray: 10;
+            animation: dash 1s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            padding: 0.75rem;
+            border-radius: 9999px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 60;
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8">
+    <!-- Theme Toggle Button -->
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-btn" title="Toggle Theme">
+        <span id="theme-icon" class="text-xl">🌙</span>
+    </button>
+
+    <!-- Header Section -->
+    <header class="text-center mb-12">
+        <div
+            class="inline-block px-4 py-1 bg-blue-600 rounded-full text-sm font-bold tracking-widest mb-4 uppercase text-white">
+            <a href="./index.html">BACK</a>
+        </div>
+        <h1
+            class="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+            How Robots Work
+        </h1>
+        <p class="text-slate-500 dark:text-slate-400 text-lg">Exploring the magic of sensors, brains, and motors!</p>
+    </header>
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+        <!-- Left Column: Visual Diagram -->
+        <section class="space-y-8">
+            <div
+                class="relative bg-slate-100 dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <span class="w-2 h-8 bg-blue-500 rounded-full mr-3"></span>
+                    The Robot System
+                </h3>
+
+                <!-- SVG Diagram -->
+                <svg viewBox="0 0 400 400" class="w-full h-auto">
+                    <!-- Connections -->
+                    <path id="path-sensor-brain" d="M100,100 L200,200" stroke="#3b82f6" stroke-width="3" fill="none"
+                        class="signal-line" />
+                    <path id="path-brain-motor" d="M200,200 L300,300" stroke="#10b981" stroke-width="3" fill="none"
+                        class="signal-line" />
+
+                    <!-- Sensor Node -->
+                    <g transform="translate(60, 60)" class="cursor-pointer" onclick="highlightPart('sensors')">
+                        <circle r="40" class="fill-white dark:fill-slate-800 stroke-blue-500" stroke-width="2" />
+                        <text y="5" text-anchor="middle" class="fill-slate-900 dark:fill-white font-bold"
+                            font-size="12">👀 Sensors</text>
+                    </g>
+
+                    <!-- Brain Node -->
+                    <g transform="translate(200, 200)" class="cursor-pointer" onclick="highlightPart('brain')">
+                        <circle r="50" class="fill-white dark:fill-slate-800 stroke-purple-500" stroke-width="2" />
+                        <text y="5" text-anchor="middle" class="fill-slate-900 dark:fill-white font-bold"
+                            font-size="12">🧠 Brain</text>
+                    </g>
+
+                    <!-- Motor Node -->
+                    <g transform="translate(340, 340)" class="cursor-pointer" onclick="highlightPart('motors')">
+                        <circle r="40" class="fill-white dark:fill-slate-800 stroke-emerald-500" stroke-width="2" />
+                        <text y="5" text-anchor="middle" class="fill-slate-900 dark:fill-white font-bold"
+                            font-size="12">⚙️ Motors</text>
+                    </g>
+                </svg>
+
+                <div id="info-box"
+                    class="mt-6 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 min-h-[100px] transition-all">
+                    <p class="text-blue-500 font-semibold mb-1">System Flow:</p>
+                    <p id="info-text" class="text-slate-600 dark:text-slate-300">Click the parts above to see how they
+                        work together!</p>
+                </div>
+            </div>
+
+            <!-- Parts Explanation Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="part-card p-4 rounded-2xl text-center">
+                    <div class="text-4xl mb-2">👀</div>
+                    <h4 class="font-bold text-blue-500">Sensors</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">The robot's eyes and ears. They gather info!
+                    </p>
+                </div>
+                <div class="part-card p-4 rounded-2xl text-center">
+                    <div class="text-4xl mb-2">🧠</div>
+                    <h4 class="font-bold text-purple-500">Brain</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">The controller. It thinks and decides!</p>
+                </div>
+                <div class="part-card p-4 rounded-2xl text-center">
+                    <div class="text-4xl mb-2">⚙️</div>
+                    <h4 class="font-bold text-emerald-500">Motors</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">The muscles. They make the robot move!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Column: Interactive Game -->
+        <section
+            class="bg-slate-100 dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Match the Parts</h3>
+                <span id="score" class="bg-blue-600 px-3 py-1 rounded-full text-sm text-white font-bold">Solved:
+                    0/3</span>
+            </div>
+
+            <p class="text-slate-500 dark:text-slate-400 mb-8 italic">Drag the part to its correct function!</p>
+
+            <div class="space-y-6">
+                <!-- Drop Zones -->
+                <div class="space-y-4">
+                    <div class="drop-zone p-6 rounded-2xl flex items-center justify-between" data-target="sensors">
+                        <span class="text-slate-700 dark:text-slate-300">"I detect a wall in front of me!"</span>
+                        <div
+                            class="slot w-16 h-16 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-2xl">
+                            ?</div>
+                    </div>
+                    <div class="drop-zone p-6 rounded-2xl flex items-center justify-between" data-target="brain">
+                        <span class="text-slate-700 dark:text-slate-300">"I decide to turn left to avoid it."</span>
+                        <div
+                            class="slot w-16 h-16 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-2xl">
+                            ?</div>
+                    </div>
+                    <div class="drop-zone p-6 rounded-2xl flex items-center justify-between" data-target="motors">
+                        <span class="text-slate-700 dark:text-slate-300">"I spin the wheels to move away."</span>
+                        <div
+                            class="slot w-16 h-16 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-2xl">
+                            ?</div>
+                    </div>
+                </div>
+
+                <!-- Draggable Items -->
+                <div class="flex justify-around pt-8 border-t border-slate-200 dark:border-slate-800">
+                    <div class="draggable-item cursor-grab active:cursor-grabbing text-center" draggable="true"
+                        data-part="sensors">
+                        <div
+                            class="w-16 h-16 bg-blue-500 rounded-xl flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform">
+                            👀</div>
+                        <span class="text-xs mt-2 block font-bold">SENSOR</span>
+                    </div>
+                    <div class="draggable-item cursor-grab active:cursor-grabbing text-center" draggable="true"
+                        data-part="brain">
+                        <div
+                            class="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform">
+                            🧠</div>
+                        <span class="text-xs mt-2 block font-bold">BRAIN</span>
+                    </div>
+                    <div class="draggable-item cursor-grab active:cursor-grabbing text-center" draggable="true"
+                        data-part="motors">
+                        <div
+                            class="w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform">
+                            ⚙️</div>
+                        <span class="text-xs mt-2 block font-bold">MOTORS</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="resetGame()"
+                class="mt-8 w-full py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-white rounded-xl font-bold transition-colors">
+                Reset Activity
+            </button>
+        </section>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-900 border-2 border-blue-500 p-8 rounded-3xl max-w-sm w-full text-center">
+            <div class="text-6xl mb-4">🤖</div>
+            <h2 class="text-3xl font-bold mb-2 text-slate-900 dark:text-white">Systems Online!</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">You've successfully connected the robot parts!</p>
+            <button onclick="closeModal()"
+                class="w-full py-3 bg-blue-600 text-white rounded-xl font-bold">Awesome!</button>
+        </div>
+    </div>
+
+    <script>
+        // Theme Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.innerText = '🌞';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.innerText = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize Theme from Storage
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.getElementById('theme-icon').innerText = '🌞';
+        }
+
+        // Info Box Logic
+        const partsData = {
+            sensors: {
+                text: "Sensors pick up signals from the world (Input). Like your eyes seeing a ball!",
+                color: "#3b82f6"
+            },
+            brain: {
+                text: "The Brain processes the signal and decides what to do (Processing). 'I should catch that ball!'",
+                color: "#8b5cf6"
+            },
+            motors: {
+                text: "Motors receive commands to move the robot (Output). Your arm reaches out to grab!",
+                color: "#10b981"
+            }
+        };
+
+        function highlightPart(part) {
+            const data = partsData[part];
+            const infoBox = document.getElementById('info-box');
+            const infoText = document.getElementById('info-text');
+
+            infoBox.style.borderColor = data.color;
+            infoText.innerText = data.text;
+
+            gsap.fromTo(infoText, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
+        }
+
+        // Drag and Drop Logic
+        let solvedCount = 0;
+        const draggables = document.querySelectorAll('.draggable-item');
+        const dropZones = document.querySelectorAll('.drop-zone');
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', (e) => {
+                draggable.classList.add('opacity-50');
+                e.dataTransfer.setData('text/plain', draggable.dataset.part);
+            });
+
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('opacity-50');
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+                zone.classList.add('active');
+            });
+
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('active');
+            });
+
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                zone.classList.remove('active');
+                const partId = e.dataTransfer.getData('text/plain');
+                const targetId = zone.dataset.target;
+
+                if (partId === targetId) {
+                    handleCorrectDrop(zone, partId);
+                } else {
+                    handleWrongDrop(zone);
+                }
+            });
+        });
+
+        function handleCorrectDrop(zone, partId) {
+            const slot = zone.querySelector('.slot');
+            const emoji = partId === 'sensors' ? '👀' : partId === 'brain' ? '🧠' : '⚙️';
+            const color = partId === 'sensors' ? 'bg-blue-500' : partId === 'brain' ? 'bg-purple-500' : 'bg-emerald-500';
+
+            slot.innerText = emoji;
+            slot.classList.remove('bg-white', 'dark:bg-slate-800', 'border-slate-300', 'dark:border-slate-700');
+            slot.classList.add(color, 'text-white', 'border-white', 'scale-110');
+
+            zone.style.pointerEvents = 'none';
+            zone.style.opacity = '0.7';
+
+            document.querySelector(`.draggable-item[data-part="${partId}"]`).style.visibility = 'hidden';
+
+            solvedCount++;
+            document.getElementById('score').innerText = `Solved: ${solvedCount}/3`;
+
+            if (solvedCount === 3) {
+                createConfetti();
+                setTimeout(() => {
+                    document.getElementById('success-modal').style.display = 'flex';
+                }, 500);
+            }
+        }
+
+        function handleWrongDrop(zone) {
+            gsap.to(zone, {
+                x: 10, repeat: 3, yoyo: true, duration: 0.05, onComplete: () => {
+                    gsap.set(zone, { x: 0 });
+                }
+            });
+        }
+
+        function resetGame() {
+            solvedCount = 0;
+            document.getElementById('score').innerText = `Solved: 0/3`;
+            draggables.forEach(d => d.style.visibility = 'visible');
+            dropZones.forEach(z => {
+                z.style.pointerEvents = 'auto';
+                z.style.opacity = '1';
+                const slot = z.querySelector('.slot');
+                slot.innerText = '?';
+                slot.className = 'slot w-16 h-16 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-2xl transition-all';
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').style.display = 'none';
+            resetGame();
+        }
+
+        function createConfetti() {
+            const colors = ['#3b82f6', '#8b5cf6', '#10b981'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confetti);
+
+                gsap.to(confetti, {
+                    y: window.innerHeight + 20,
+                    x: (Math.random() - 0.5) * 200,
+                    rotation: Math.random() * 360,
+                    duration: 2 + Math.random() * 2,
+                    ease: "power1.out",
+                    onComplete: () => confetti.remove()
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

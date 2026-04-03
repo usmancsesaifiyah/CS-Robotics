@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Literacy & Robotics Exhibition</title>
+    <link rel="shortcut icon" href="./USMAN Logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #1e293b;
+            --card-bg: #1e293b;
+            --accent-blue: #3b82f6;
+            --nav-dot-bg: #475569;
+        }
+
+        .light-theme {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --accent-blue: #2563eb;
+            --nav-dot-bg: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Theming utilities */
+        .theme-bg-secondary {
+            background-color: var(--bg-secondary);
+        }
+
+        .theme-text-secondary {
+            color: var(--text-secondary);
+        }
+
+        .theme-border {
+            border-color: var(--border-color);
+        }
+
+        .theme-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .board-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .board-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 150px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-width: 1px;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--nav-dot-bg);
+            transition: 0.3s;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-blue);
+            transform: scale(1.3);
+        }
+
+        .code-bg {
+            background-image: linear-gradient(rgba(30, 41, 59, 0.85), rgba(30, 41, 59, 0.85)),
+                url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400');
+            background-size: cover;
+        }
+
+        .light-theme .code-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400');
+        }
+
+        #theme-toggle {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #theme-toggle:active {
+            transform: scale(0.9) rotate(15deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header & Intro -->
+    <header class="py-20 px-6 text-center theme-bg-secondary border-b theme-border relative">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle"
+            class="absolute top-6 right-6 w-12 h-12 rounded-full theme-bg-secondary theme-border border flex items-center justify-center text-xl shadow-lg hover:shadow-xl transition-all"
+            aria-label="Toggle Theme">
+            <i class="fas fa-moon text-blue-400"></i>
+        </button>
+
+        <div class="max-w-4xl mx-auto">
+            <div
+                class="inline-block px-4 py-1 mb-4 text-sm font-semibold tracking-widest uppercase bg-blue-600 text-white rounded-full">
+                Exhibition 2026-27
+            </div>
+            <h1
+                class="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight">
+                Media Literacy in the Digital & Robotics World
+            </h1>
+            <p class="text-xl theme-text-secondary mb-8">
+                Empowering Grade 1–8 students with critical thinking, digital safety, and technological innovation.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="./B3.htm"
+                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition shadow-lg">Activity</a>
+                <a href="#interactive"
+                    class="px-6 py-3 border theme-border hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg font-bold transition">Interactive
+                    Zone</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-16 space-y-32">
+
+        <!-- Board 1: Media Literacy -->
+        <section id="board1" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-2xl text-white">🧠
+                </div>
+                <h2 class="text-3xl font-bold">1: Be Smart with Media!</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg theme-text-secondary">
+                        Understanding media isn't just about using it—it's about questioning it.
+                        Media Literacy helps us separate fact from fiction.
+                    </p>
+                    <div class="theme-bg-secondary p-6 rounded-xl border-l-4 border-blue-500 shadow-sm">
+                        <h3 class="font-bold mb-2">Think Before You Click:</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-blue-400"></i> Is it
+                                <strong>TRUE</strong>?</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-shield-alt text-blue-400"></i> Is it
+                                <strong>SAFE</strong>?</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-heart text-blue-400"></i> Is it
+                                <strong>KIND</strong>?</li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 theme-bg-secondary theme-border border rounded-lg text-center">
+                            <i class="fas fa-tv text-3xl mb-2 text-blue-400"></i>
+                            <p>Traditional TV</p>
+                        </div>
+                        <div class="p-4 theme-bg-secondary theme-border border rounded-lg text-center">
+                            <i class="fas fa-mobile-alt text-3xl mb-2 text-blue-400"></i>
+                            <p>Mobile Apps</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800"
+                        alt="Digital Literacy" class="rounded-2xl shadow-2xl transition group-hover:scale-[1.02]">
+                    <div
+                        class="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-2xl shadow-xl max-w-[200px]">
+                        <p class="text-sm italic">"Don't believe everything you see on a screen!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board 2: Digital Safety -->
+        <section id="board2" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center text-2xl text-white">🔒
+                </div>
+                <h2 class="text-3xl font-bold">2: Stay Safe Online!</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front theme-bg-secondary border-emerald-500/30">
+                            <p class="font-bold">Password: 123456</p>
+                        </div>
+                        <div class="flip-card-back bg-red-500 text-white border-red-500">
+                            <p class="font-bold">❌ UNSAFE! Too easy to guess.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front theme-bg-secondary border-emerald-500/30">
+                            <p class="font-bold">Sharing full name & school</p>
+                        </div>
+                        <div class="flip-card-back bg-red-500 text-white border-red-500">
+                            <p class="font-bold">❌ UNSAFE! Keep personal info private.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front theme-bg-secondary border-emerald-500/30">
+                            <p class="font-bold">Asking parents before downloading</p>
+                        </div>
+                        <div class="flip-card-back bg-emerald-500 text-white border-emerald-500">
+                            <p class="font-bold">✅ SAFE! Always check with adults.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 theme-bg-secondary p-8 rounded-2xl border theme-border">
+                <h3 class="text-xl font-bold mb-4 text-emerald-500">Cyberbullying: What to do?</h3>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="theme-bg-primary p-4 rounded-lg border theme-border"><strong>Stop:</strong> Don't reply.
+                    </div>
+                    <div class="theme-bg-primary p-4 rounded-lg border theme-border"><strong>Block:</strong> Use block
+                        features.</div>
+                    <div class="theme-bg-primary p-4 rounded-lg border theme-border"><strong>Save:</strong> Keep
+                        screenshots.</div>
+                    <div class="theme-bg-primary p-4 rounded-lg border theme-border"><strong>Tell:</strong> Inform a
+                        trusted adult.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board 3: Computer Science -->
+        <section id="board3" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center text-2xl text-white">💻
+                </div>
+                <h2 class="text-3xl font-bold">3: From Patterns to Programming</h2>
+            </div>
+            <div class="code-bg p-8 md:p-12 rounded-3xl border border-yellow-500/30">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-slate-900/90 dark:bg-slate-900/80 backdrop-blur p-6 rounded-xl border-t-4 border-yellow-500">
+                        <span class="text-xs font-mono text-yellow-500">GRADE 1-2</span>
+                        <h4 class="text-xl font-bold mt-2 text-white">Patterns & Logic</h4>
+                        <p class="text-sm text-slate-400 mt-2">Learning sequences using colorful blocks and physical
+                            games.</p>
+                        <div class="mt-4 flex gap-2">
+                            <div class="w-8 h-8 bg-red-500 rounded"></div>
+                            <div class="w-8 h-8 bg-blue-500 rounded"></div>
+                            <div class="w-8 h-8 bg-red-500 rounded"></div>
+                            <div class="w-8 h-8 border border-white border-dashed rounded"></div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-slate-900/90 dark:bg-slate-900/80 backdrop-blur p-6 rounded-xl border-t-4 border-yellow-500">
+                        <span class="text-xs font-mono text-yellow-500">GRADE 3-5</span>
+                        <h4 class="text-xl font-bold mt-2 text-white">Block Coding</h4>
+                        <p class="text-sm text-slate-400 mt-2">Mastering ScratchJr and basic game design logic.</p>
+                        <div class="mt-4 p-2 bg-blue-600 rounded text-[10px] font-mono text-white">when_clicked {
+                            move(10) }</div>
+                    </div>
+                    <div
+                        class="bg-slate-900/90 dark:bg-slate-900/80 backdrop-blur p-6 rounded-xl border-t-4 border-yellow-500">
+                        <span class="text-xs font-mono text-yellow-500">GRADE 6-8</span>
+                        <h4 class="text-xl font-bold mt-2 text-white">Web & Debugging</h4>
+                        <p class="text-sm text-slate-400 mt-2">Diving into HTML, CSS, and solving complex problems.</p>
+                        <div class="mt-4 p-2 bg-slate-800 rounded text-[10px] font-mono text-emerald-400">
+                            &lt;div class="hero"&gt;<br>
+                            &nbsp;&nbsp;Hello World!<br>
+                            &lt;/div&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board 4: Welcome to Robotics -->
+        <section id="board4" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-2xl text-white">🤖
+                </div>
+                <h2 class="text-3xl font-bold">4: World of Robotics</h2>
+            </div>
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="flex-1">
+                    <div
+                        class="inline-block px-4 py-1 mb-6 text-xs font-bold text-white bg-red-600 animate-pulse rounded">
+                        NEW SUBJECT ALERT! 🚀
+                    </div>
+                    <p class="text-xl leading-relaxed theme-text-secondary">
+                        Robots are machines that can sense, think, and act! From building cars in factories to cleaning
+                        your living room floor, robots are everywhere.
+                    </p>
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="p-6 theme-bg-secondary rounded-2xl border theme-border">
+                            <h5 class="font-bold text-orange-500 mb-2">Industrial</h5>
+                            <p class="text-xs theme-text-secondary">Large arms used in manufacturing cars and tech.</p>
+                        </div>
+                        <div class="p-6 theme-bg-secondary rounded-2xl border theme-border">
+                            <h5 class="font-bold text-orange-500 mb-2">Service</h5>
+                            <p class="text-xs theme-text-secondary">Delivery bots, vacuum cleaners, and medical aids.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex-1 theme-bg-secondary rounded-3xl p-8 flex items-center justify-center border theme-border">
+                    <svg width="200" height="260" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="80" width="120" height="120" rx="10" fill="#475569" stroke="#f97316"
+                            stroke-width="4" />
+                        <rect x="70" y="40" width="60" height="40" rx="5" fill="#64748b" stroke="#f97316"
+                            stroke-width="4" />
+                        <circle cx="85" cy="60" r="5" fill="#f97316" />
+                        <circle cx="115" cy="60" r="5" fill="#f97316" />
+                        <rect x="60" y="110" width="80" height="20" rx="4" fill="#1e293b" />
+                        <rect x="20" y="100" width="20" height="60" rx="4" fill="#475569" />
+                        <rect x="160" y="100" width="20" height="60" rx="4" fill="#475569" />
+                        <rect x="60" y="200" width="30" height="40" rx="4" fill="#475569" />
+                        <rect x="110" y="200" width="30" height="40" rx="4" fill="#475569" />
+                        <path d="M100 20 L100 40" stroke="#f97316" stroke-width="4" />
+                        <circle cx="100" cy="15" r="5" fill="#ef4444" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board 5: Robotics in Action -->
+        <section id="board5" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center text-2xl text-white">⚙️
+                </div>
+                <h2 class="text-3xl font-bold">5: How Robots Work</h2>
+            </div>
+            <div class="theme-bg-secondary p-8 rounded-3xl border border-red-500/20 shadow-lg">
+                <div id="interactive" class="text-center mb-10">
+                    <h3 class="text-2xl font-bold mb-2">Interactive: Match the Part!</h3>
+                    <p class="theme-text-secondary">Click a part to learn what it does!</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-6 theme-bg-primary rounded-xl border-t-2 border-red-500 cursor-pointer hover:shadow-md transition"
+                        onclick="showPart('👀 Sensors', 'The Eyes/Ears: They help the robot understand its surroundings.')">
+                        <h4 class="font-bold text-xl mb-2">👀 Sensors</h4>
+                        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-500 w-1/3"></div>
+                        </div>
+                    </div>
+                    <div class="p-6 theme-bg-primary rounded-xl border-t-2 border-red-500 cursor-pointer hover:shadow-md transition"
+                        onclick="showPart('🧠 Controller', 'The Brain: It processes information and makes decisions.')">
+                        <h4 class="font-bold text-xl mb-2">🧠 Controller</h4>
+                        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-500 w-2/3"></div>
+                        </div>
+                    </div>
+                    <div class="p-6 theme-bg-primary rounded-xl border-t-2 border-red-500 cursor-pointer hover:shadow-md transition"
+                        onclick="showPart('⚙️ Motors', 'The Muscles: They allow the robot to move and act.')">
+                        <h4 class="font-bold text-xl mb-2">⚙️ Motors</h4>
+                        <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-500 w-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="part-info"
+                    class="mt-8 p-6 bg-red-500/10 border border-red-500/30 rounded-xl text-center hidden">
+                    <h4 id="info-title" class="font-bold text-xl mb-1 text-red-500"></h4>
+                    <p id="info-desc" class="theme-text-secondary"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board 6: Future Tech -->
+        <section id="board6" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center text-2xl text-white">🌆
+                </div>
+                <h2 class="text-3xl font-bold">6: Future Innovators</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="p-6 bg-gradient-to-br from-purple-600 to-indigo-700 rounded-2xl text-white shadow-xl">
+                        <h3 class="text-2xl font-bold mb-4">Smart Cities & AI</h3>
+                        <p>Imagine a world where traffic lights talk to cars, and trash cans tell the truck they are
+                            full! That's the future we are building.</p>
+                    </div>
+                    <div class="theme-bg-secondary p-6 rounded-2xl border theme-border">
+                        <h4 class="font-bold mb-4">Student Ideas Wall 📝</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div
+                                class="bg-yellow-100 text-slate-800 p-3 rotate-2 shadow-md text-sm border-l-2 border-yellow-400">
+                                "I want to build a robot that cleans the ocean!" - Aryan, G5
+                            </div>
+                            <div
+                                class="bg-blue-100 text-slate-800 p-3 -rotate-1 shadow-md text-sm border-l-2 border-blue-400">
+                                "A flying ambulance for mountain rescues." - Sara, G7
+                            </div>
+                            <div
+                                class="bg-pink-100 text-slate-800 p-3 rotate-1 shadow-md text-sm border-l-2 border-pink-400">
+                                "Smart glasses that translate any language." - Kevin, G6
+                            </div>
+                            <div
+                                class="bg-green-100 text-slate-800 p-3 -rotate-2 shadow-md text-sm border-l-2 border-green-400">
+                                "Robots that help with groceries." - Maya, G8
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="theme-bg-secondary rounded-3xl border theme-border p-8 text-center flex flex-col justify-center shadow-lg">
+                    <h3 class="text-3xl font-bold mb-6">Scan to See Projects!</h3>
+                    <div
+                        class="mx-auto bg-white p-4 rounded-xl w-48 h-48 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                        <img src="./qrcode_drive.google.com.png" alt="QR CODE" title="SCAN TO VIEW PROJECTS"
+                            class="max-w-full">
+                    </div>
+                    <p class="theme-text-secondary">Scan this QR code to visit our online Scratch Gallery and Robotics
+                        Video channel!</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sidebar Navigation Dots -->
+    <nav class="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50">
+        <a href="#board1" class="nav-dot active" title="Board 1"></a>
+        <a href="#board2" class="nav-dot" title="Board 2"></a>
+        <a href="#board3" class="nav-dot" title="Board 3"></a>
+        <a href="#board4" class="nav-dot" title="Board 4"></a>
+        <a href="#board5" class="nav-dot" title="Board 5"></a>
+        <a href="#board6" class="nav-dot" title="Board 6"></a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="theme-bg-secondary py-12 px-6 border-t theme-border text-center">
+        <p class="theme-text-secondary text-sm">&copy; 2026 - 27 Saifiyah Senior Secondary School Exhibition: Media
+            Literacy & Robotics</p>
+        <div class="mt-4 flex justify-center gap-6 text-2xl theme-text-secondary">
+            <i class="fab fa-instagram hover:text-pink-500 cursor-pointer transition"></i>
+            <i class="fab fa-youtube hover:text-red-500 cursor-pointer transition"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved preference
+        if (localStorage.getItem('theme') === 'light') {
+            enableLightTheme();
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-theme')) {
+                disableLightTheme();
+            } else {
+                enableLightTheme();
+            }
+        });
+
+        function enableLightTheme() {
+            body.classList.add('light-theme');
+            icon.classList.remove('fa-moon', 'text-blue-400');
+            icon.classList.add('fa-sun', 'text-yellow-500');
+            localStorage.setItem('theme', 'light');
+        }
+
+        function disableLightTheme() {
+            body.classList.remove('light-theme');
+            icon.classList.remove('fa-sun', 'text-yellow-500');
+            icon.classList.add('fa-moon', 'text-blue-400');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        // Update active nav dot on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navDots = document.querySelectorAll('.nav-dot');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href').includes(current)) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        // Board 5 Functionality
+        function showPart(title, desc) {
+            const infoBox = document.getElementById('part-info');
+            const titleEl = document.getElementById('info-title');
+            const descEl = document.getElementById('info-desc');
+
+            infoBox.classList.remove('hidden');
+            titleEl.textContent = title;
+            descEl.textContent = desc;
+
+            // Simple reveal animation
+            infoBox.style.opacity = '0';
+            setTimeout(() => {
+                infoBox.style.transition = 'opacity 0.3s ease';
+                infoBox.style.opacity = '1';
+            }, 10);
+        }
+    </script>
+</body>
+
+</html>

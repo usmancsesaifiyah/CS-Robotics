@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSEED CS & Robotics Display Plan</title>
+        <link rel="shortcut icon" href="./USMAN Logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --code-bg: #1e1e1e;
+            --scratch-orange: #ffab19;
+            --robot-silver: #cbd5e1;
+            --starburst-yellow: #fde047;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .board-container {
+            perspective: 1000px;
+        }
+
+        .code-pattern-bg {
+            background-color: #1a1a1a;
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-pattern-bg::before {
+            content: "<div>\n  <p>Hello World</p>\n</div>\nif (pattern === 'match') {\n  moveForward();\n}";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: rgba(255, 255, 255, 0.05);
+            font-family: 'Fira Code', monospace;
+            white-space: pre;
+            font-size: 14px;
+        }
+
+        .scratch-block {
+            background: var(--scratch-orange);
+            border: 2px solid #cf8b17;
+            border-radius: 8px 8px 8px 25px;
+            padding: 8px 16px;
+            color: white;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .scratch-block:hover {
+            transform: scale(1.05);
+        }
+
+        .robot-foil {
+            background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 50%, #e2e8f0 100%);
+            border: 1px solid #64748b;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .starburst {
+            clip-path: polygon(100% 50%, 80% 65%, 85% 85%, 65% 80%, 50% 100%, 35% 80%, 15% 85%, 20% 65%, 0% 50%, 20% 35%, 15% 15%, 35% 20%, 50% 0%, 65% 20%, 85% 15%, 80% 35%);
+            background: #facc15;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .flow-line {
+            width: 2px;
+            height: 30px;
+            background: #94a3b8;
+            margin: 0 auto;
+        }
+
+        .flow-box {
+            border: 2px solid #3b82f6;
+            border-radius: 4px;
+            padding: 5px 10px;
+            background: white;
+            font-size: 0.8rem;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-10">
+
+    <header class="max-w-6xl mx-auto mb-12 text-center">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-2">Display Board Master Plan</h1>
+        <p class="text-slate-500">Computer Science & Robotics Sections (XSEED Curriculum Integration)</p>
+    </header>
+
+    <!-- BOARD 3: COMPUTER SCIENCE -->
+    <section class="max-w-6xl mx-auto mb-20">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold uppercase">Board 3</span>
+            <h2 class="text-2xl font-bold">From Patterns to Programming</h2>
+        </div>
+
+        <div class="code-pattern-bg rounded-xl p-8 shadow-2xl border-4 border-slate-800">
+            <!-- Header Title -->
+            <div class="text-center mb-12">
+                <h3 class="text-5xl font-black text-white italic tracking-tighter">
+                    FROM <span class="text-orange-400">PATTERNS</span> TO <span class="text-blue-400">PROGRAMMING</span>
+                </h3>
+                <p class="text-slate-400 mt-2 code-font">// XSEED Grades 1—8 Journey</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- G1-2: Patterns -->
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🎨</span>
+                        <h4 class="text-xl font-bold text-white">Grades 1–2</h4>
+                    </div>
+                    <p class="text-orange-300 font-bold mb-4">Visual Logic & Sequences</p>
+
+                    <!-- Pattern Visual -->
+                    <div class="flex gap-2 mb-6 justify-center bg-black/30 p-4 rounded">
+                        <div class="w-8 h-8 bg-red-500 rounded-full"></div>
+                        <div class="w-8 h-8 bg-blue-500 rounded-full"></div>
+                        <div class="w-8 h-8 bg-red-500 rounded-full"></div>
+                        <div
+                            class="w-8 h-8 border-2 border-dashed border-white/50 rounded-full flex items-center justify-center text-white text-xs">
+                            ?</div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flow-box text-center">Start</div>
+                        <div class="flow-line"></div>
+                        <div class="flow-box text-center">Draw Circle</div>
+                        <div class="flow-line"></div>
+                        <div class="flow-box text-center">Repeat</div>
+                    </div>
+                </div>
+
+                <!-- G3-5: ScratchJr -->
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🧠</span>
+                        <h4 class="text-xl font-bold text-white">Grades 3–5</h4>
+                    </div>
+                    <p class="text-orange-300 font-bold mb-4">ScratchJr & Block Logic</p>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="scratch-block w-full justify-start">
+                            <span class="text-xl">🏳️</span> when clicked
+                        </div>
+                        <div class="scratch-block w-full justify-start"
+                            style="background: #4c97ff; border-color: #3373cc;">
+                            <span>➡️</span> move 10 steps
+                        </div>
+                        <div class="scratch-block w-full justify-start"
+                            style="background: #9966ff; border-color: #774dc1;">
+                            <span>💬</span> say "Hello!"
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-2 rounded border border-slate-600">
+                        <div class="text-[10px] text-slate-400 code-font mb-1">student_project_01.png</div>
+                        <div
+                            class="h-20 bg-slate-700 flex items-center justify-center rounded overflow-hidden italic text-slate-500 text-xs">
+                            [Screenshot Placeholder]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- G6-8: Web Dev -->
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">💻</span>
+                        <h4 class="text-xl font-bold text-white">Grades 6–8</h4>
+                    </div>
+                    <p class="text-orange-300 font-bold mb-4">HTML, CSS & Debugging</p>
+
+                    <div
+                        class="bg-slate-900 p-3 rounded font-mono text-xs mb-4 text-green-400 border border-slate-700 shadow-inner">
+                        <span class="text-blue-400">&lt;div</span> <span class="text-yellow-300">class</span>=<span
+                            class="text-orange-300">"hero"</span><span class="text-blue-400">&gt;</span><br>
+                        &nbsp;&nbsp;<span class="text-blue-400">&lt;h1&gt;</span>Web Design<span
+                            class="text-blue-400">&lt;/h1&gt;</span><br>
+                        <span class="text-blue-400">&lt;/div&gt;</span>
+                    </div>
+
+                    <div class="bg-red-900/30 border border-red-500/50 p-2 rounded text-[10px] text-red-200 mb-4">
+                        <span class="font-bold">DEBUGGING TASK:</span><br>
+                        Expected: color: red;<br>
+                        Found: collor: red; ❌
+                    </div>
+
+                    <div class="flex gap-2">
+                        <div
+                            class="w-1/2 h-12 bg-blue-500/20 rounded flex items-center justify-center text-[10px] text-blue-300 border border-blue-500/30">
+                            CSS Selectors</div>
+                        <div
+                            class="w-1/2 h-12 bg-green-500/20 rounded flex items-center justify-center text-[10px] text-green-300 border border-green-500/30">
+                            HTML Syntax</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fun Floating Snippets -->
+            <div class="absolute bottom-4 right-4 opacity-20 pointer-events-none code-font text-white text-xs">
+                while(student.learning) {<br>
+                &nbsp;&nbsp;student.grow();<br>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- BOARD 4: ROBOTICS -->
+    <section class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold uppercase">Board 4</span>
+            <h2 class="text-2xl font-bold">The World of Robotics</h2>
+        </div>
+
+        <div class="bg-slate-100 rounded-xl p-8 shadow-2xl border-4 border-slate-300 relative overflow-hidden">
+
+            <!-- Starburst Highlight -->
+            <div
+                class="absolute -top-10 -right-10 w-48 h-48 starburst flex items-center justify-center text-center p-8 rotate-12 z-20">
+                <span class="text-slate-900 font-black text-lg leading-tight">NEW<br>SUBJECT<br>ALERT!</span>
+            </div>
+
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-black text-slate-800 uppercase tracking-widest">
+                    Welcome to the <span class="text-blue-600">World</span> of <span
+                        class="text-indigo-600">Robotics!</span>
+                </h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                <!-- Left Content: Definitions -->
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-blue-500">
+                        <h4 class="text-xl font-bold mb-2 flex items-center gap-2">
+                            <span>🤖</span> What is a Robot?
+                        </h4>
+                        <p class="text-slate-600 italic">"A machine capable of carrying out a complex series of actions
+                            automatically, especially one programmable by a computer."</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold mb-4 uppercase text-slate-500 tracking-wider">Types of Robots</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 flex flex-col items-center">
+                                <span class="text-3xl mb-2">🏭</span>
+                                <span class="font-bold">Industrial</span>
+                                <span class="text-[10px] text-center text-slate-500">Factories & Assembly</span>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-100 flex flex-col items-center">
+                                <span class="text-3xl mb-2">🏨</span>
+                                <span class="font-bold">Service</span>
+                                <span class="text-[10px] text-center text-slate-500">Hospitals & Hotels</span>
+                            </div>
+                            <div
+                                class="bg-purple-50 p-4 rounded-lg border border-purple-100 flex flex-col items-center">
+                                <span class="text-3xl mb-2">🎓</span>
+                                <span class="font-bold">Educational</span>
+                                <span class="text-[10px] text-center text-slate-500">Learning & Kits</span>
+                            </div>
+                            <div
+                                class="bg-orange-50 p-4 rounded-lg border border-orange-100 flex flex-col items-center">
+                                <span class="text-3xl mb-2">🚁</span>
+                                <span class="font-bold">Drones</span>
+                                <span class="text-[10px] text-center text-slate-500">Exploration & Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content: 3D Visualization -->
+                <div class="relative h-[400px] flex items-center justify-center">
+                    <!-- Foil Robot Mockup -->
+                    <div class="animate-float z-10">
+                        <!-- Robot Head -->
+                        <div
+                            class="robot-foil w-32 h-24 rounded-2xl mx-auto flex items-center justify-center gap-4 relative">
+                            <div class="w-6 h-6 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]"></div>
+                            <div class="w-6 h-6 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]"></div>
+                            <!-- Antenna -->
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 w-1 h-8 bg-slate-500">
+                                <div class="w-3 h-3 bg-red-500 rounded-full absolute -top-2 -left-1"></div>
+                            </div>
+                        </div>
+                        <!-- Robot Body -->
+                        <div class="robot-foil w-48 h-40 rounded-3xl mt-4 mx-auto p-4 flex flex-col justify-between">
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="h-4 bg-slate-400 rounded"></div>
+                                <div class="h-4 bg-slate-400 rounded"></div>
+                                <div class="h-4 bg-slate-400 rounded"></div>
+                            </div>
+                            <div
+                                class="h-12 bg-black/20 rounded-lg flex items-center justify-center text-slate-700 font-mono text-xs font-bold">
+                                SYSTEM ACTIVE</div>
+                        </div>
+                    </div>
+
+                    <!-- Real Life Examples Cloud -->
+                    <div
+                        class="absolute top-0 left-0 bg-white shadow-lg p-2 rounded-full px-4 text-xs font-bold text-slate-500 border border-slate-200">
+                        Vacuum Robots</div>
+                    <div
+                        class="absolute bottom-10 left-10 bg-white shadow-lg p-2 rounded-full px-4 text-xs font-bold text-slate-500 border border-slate-200">
+                        Smart Cars</div>
+                    <div
+                        class="absolute top-20 right-0 bg-white shadow-lg p-2 rounded-full px-4 text-xs font-bold text-slate-500 border border-slate-200">
+                        Mars Rovers</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="max-w-6xl mx-auto mt-20 p-8 bg-white rounded-xl shadow-lg border border-slate-200">
+        <h3 class="text-xl font-bold mb-4">Implementation Guide for Teachers</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+            <div>
+                <h4 class="font-bold text-orange-600 mb-2">CS Board Decoration Tips:</h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>Use a <strong>dark matte chart paper</strong> for the background to mimic dark-mode IDEs.</li>
+                    <li>Print "code snippets" on neon green/cyan paper and scatter them in the background.</li>
+                    <li>For Scratch blocks, use <strong>foam sheets</strong> to give them a raised, tactile feel.</li>
+                    <li>Laminate student screenshots to make them look like real computer monitors.</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-blue-600 mb-2">Robotics Board Decoration Tips:</h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>Use <strong>silver foil paper</strong> or metallic wrapping paper for the robot cut-outs.</li>
+                    <li>Add <strong>bottle caps</strong> painted silver for joints and eyes.</li>
+                    <li>The "NEW SUBJECT" starburst should be <strong>fluorescent yellow card</strong> for maximum
+                        impact.</li>
+                    <li>Glue real (old) circuit boards or wires to the robot for a "pro" look.</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

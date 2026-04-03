@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be Smart with Media!</title>
+        <link rel="shortcut icon" href="./USMAN Logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f0f9ff;
+        }
+
+        .title-font {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .board-container {
+            background: #ffffff;
+            border: 12px solid #3b82f6;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border: 3px solid #3b82f6;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 20px;
+            border-width: 15px 15px 0;
+            border-style: solid;
+            border-color: #3b82f6 transparent;
+        }
+
+        .brain-vs-screen {
+            background: linear-gradient(90deg, #dcfce7 50%, #fee2e2 50%);
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8">
+    <div class="max-w-5xl mx-auto board-container rounded-3xl overflow-hidden">
+
+        <!-- Header -->
+        <div class="bg-blue-500 text-white p-8 text-center">
+            <h1 class="title-font text-4xl md:text-6xl mb-2">🎯 Be Smart with Media!</h1>
+            <p class="text-xl opacity-90">Helping you navigate the digital world safely and wisely.</p>
+        </div>
+
+        <div class="p-6 md:p-10 space-y-12">
+
+            <!-- Definition Section -->
+            <section class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <h2 class="text-3xl font-bold text-blue-600 flex items-center">
+                        <span class="mr-3">🤔</span> What is Media Literacy?
+                    </h2>
+                    <div class="bg-blue-50 p-6 rounded-2xl border-l-8 border-blue-400">
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            It means being a <strong>Digital Detective!</strong> 🕵️‍♂️<br><br>
+                            Media Literacy is the ability to <strong>look</strong> at information,
+                            <strong>understand</strong> what it's saying, and <strong>decide</strong>
+                            if it is helpful, true, or safe.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Brain vs Screen Visual -->
+                <div class="brain-vs-screen p-8 rounded-3xl border-4 border-dashed border-gray-300 relative">
+                    <div class="flex justify-around items-center">
+                        <div class="text-6xl">🧠</div>
+                        <div class="text-4xl text-gray-400">VS</div>
+                        <div class="text-6xl">💻</div>
+                    </div>
+                    <div class="mt-6 space-y-4">
+                        <div class="speech-bubble text-sm font-semibold text-blue-700">
+                            "Who made this?"
+                        </div>
+                        <div class="speech-bubble text-sm font-semibold text-blue-700 ml-12">
+                            "Is this an ad or a fact?"
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Media -->
+            <section>
+                <h2 class="text-3xl font-bold text-center text-purple-600 mb-8">Where do we see Media?</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="card bg-yellow-100 p-6 rounded-2xl text-center border-b-4 border-yellow-400">
+                        <div class="text-5xl mb-3">📺</div>
+                        <h3 class="font-bold text-lg">TV</h3>
+                        <p class="text-sm text-gray-600">News & Shows</p>
+                    </div>
+                    <div class="card bg-green-100 p-6 rounded-2xl text-center border-b-4 border-green-400">
+                        <div class="text-5xl mb-3">🌐</div>
+                        <h3 class="font-bold text-lg">Internet</h3>
+                        <p class="text-sm text-gray-600">Websites</p>
+                    </div>
+                    <div class="card bg-blue-100 p-6 rounded-2xl text-center border-b-4 border-blue-400">
+                        <div class="text-5xl mb-3">📱</div>
+                        <h3 class="font-bold text-lg">Apps</h3>
+                        <p class="text-sm text-gray-600">Social Media</p>
+                    </div>
+                    <div class="card bg-red-100 p-6 rounded-2xl text-center border-b-4 border-red-400">
+                        <div class="text-5xl mb-3">🎮</div>
+                        <h3 class="font-bold text-lg">Games</h3>
+                        <p class="text-sm text-gray-600">Online Worlds</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Think Before You Click -->
+            <section class="bg-indigo-600 text-white p-8 rounded-3xl">
+                <h2 class="title-font text-3xl text-center mb-8">“Think Before You Click” Rules</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20 text-center">
+                        <div class="text-4xl mb-4">✅</div>
+                        <h3 class="text-xl font-bold mb-2">Is it TRUE?</h3>
+                        <p class="text-sm opacity-90">Check your facts. Does it come from a source you trust?</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20 text-center">
+                        <div class="text-4xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-bold mb-2">Is it SAFE?</h3>
+                        <p class="text-sm opacity-90">Never share your password or your real address online!</p>
+                    </div>
+                    <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20 text-center">
+                        <div class="text-4xl mb-4">💖</div>
+                        <h3 class="text-xl font-bold mb-2">Is it KIND?</h3>
+                        <p class="text-sm opacity-90">Treat people online the same way you treat them in person.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-gray-100 p-4 text-center text-gray-500 text-sm">
+            Remember: Your brain is the most powerful tool in the digital world! 🚀
+        </div>
+    </div>
+</body>
+
+</html>
